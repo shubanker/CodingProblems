@@ -57,6 +57,9 @@ export class RotateList {
     }
     return ar;
   }
+  static toString(tail: NODE) {
+    return this.toArray(tail).join(" -> ");
+  }
 }
 
 export interface NODE {
