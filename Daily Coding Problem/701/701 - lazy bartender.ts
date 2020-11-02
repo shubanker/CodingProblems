@@ -12,6 +12,7 @@ A lazy bartender working at this bar is trying to reduce his effort by limiting 
 
 For the input above, the answer would be 2, as drinks 1 and 5 will satisfy everyone.
 */
+//TODO: Revisit logic, find most popular drink eliminate then revert with recursion.
 
 export function findMinDrinks(preferences: Record<any, any[]>) {
   const preferenceCount: Record<any, number> = {};
