@@ -11,6 +11,7 @@ export function getChepestPrice(
   destination: string,
   connectionsLimit: number
 ) {
+  //generating map of source=>flight for easier lookup.
   const connectionMap: Record<string, any[][]> = list.reduce(
     (accum, flight) => {
       if (!accum[flight[0]]) {
@@ -44,10 +45,10 @@ function findChepestFLight(
   const prices: number[] = [];
   connectionMap[source]?.forEach((flight) => {
     const flightDestination = flight[1];
-    const inclusivePrice = +flight[2] + currentPrice;
     if (visitedCities.includes(flightDestination)) {
       return;
     }
+    const inclusivePrice = +flight[2] + currentPrice;
     if (flightDestination === destination) {
       prices.push(inclusivePrice);
     } else {
