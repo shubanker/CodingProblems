@@ -12,7 +12,6 @@ A lazy bartender working at this bar is trying to reduce his effort by limiting 
 
 For the input above, the answer would be 2, as drinks 1 and 5 will satisfy everyone.
 */
-//TODO: Revisit logic, find most popular drink eliminate then revert with recursion.
 
 export function findMinDrinks(preferences: Record<any, any[]>) {
   const preferenceCount: Record<any, number> = {};
@@ -24,18 +23,48 @@ export function findMinDrinks(preferences: Record<any, any[]>) {
       preferenceCount[drink]++;
     });
   }
+
+  const preferenceCloned = { ...preferences };
+  let include = false;
+  const resultDrinks: Set<string> = new Set();
+  while (true) {
+    let empty = true;
+    let mostPopularDrink: string;
+    for (const drink in preferenceCount) {
+      mostPopularDrink =
+        !mostPopularDrink ||
+        preferenceCount[drink] > preferenceCount[mostPopularDrink]
+          ? drink
+          : mostPopularDrink;
+    }
+    for (const key in preferenceCloned) {
+      empty = false;
+      if (preferenceCloned[key].findIndex((d) => d == mostPopularDrink) + 1) {
+        preferenceCloned[key].forEach((drink) => {
+          preferenceCount[drink]--;
+        });
+        delete preferenceCloned[key];
+      }
+    }
+    if (empty) {
+      break;
+    }
+    resultDrinks.add(mostPopularDrink);
+  }
+  return [...resultDrinks];
   const popularDrinks = Object.keys(preferenceCount).sort(
     (a, b) => preferenceCount[b] - preferenceCount[a]
   );
-  const preferenceCloned = { ...preferences };
   const drinks: any[] = [];
   for (let i = 0; i < popularDrinks.length; i++) {
     if (!Object.keys(preferenceCloned).length) {
       break;
     }
-    let include = false;
     for (const key in preferenceCloned) {
       if (preferenceCloned[key].findIndex((d) => d == popularDrinks[i]) + 1) {
+        preferenceCloned[key].forEach((drink) => {
+          preferenceCount[drink]--;
+        });
         delete preferenceCloned[key];
         include = true;
       }
