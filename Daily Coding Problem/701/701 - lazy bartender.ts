@@ -15,6 +15,7 @@ For the input above, the answer would be 2, as drinks 1 and 5 will satisfy every
 
 export function findMinDrinks(preferences: Record<any, any[]>) {
   const preferenceCount: Record<any, number> = {};
+  //Counting drinks popularity.
   for (const user in preferences) {
     preferences[user].forEach((drink) => {
       if (!preferenceCount[drink]) {
@@ -25,7 +26,6 @@ export function findMinDrinks(preferences: Record<any, any[]>) {
   }
 
   const preferenceCloned = { ...preferences };
-  let include = false;
   const resultDrinks: Set<string> = new Set();
   while (true) {
     let empty = true;
@@ -37,13 +37,13 @@ export function findMinDrinks(preferences: Record<any, any[]>) {
           ? drink
           : mostPopularDrink;
     }
-    for (const key in preferenceCloned) {
+    for (const user in preferenceCloned) {
       empty = false;
-      if (preferenceCloned[key].findIndex((d) => d == mostPopularDrink) + 1) {
-        preferenceCloned[key].forEach((drink) => {
+      if (preferenceCloned[user].findIndex((d) => d == mostPopularDrink) + 1) {
+        preferenceCloned[user].forEach((drink) => {
           preferenceCount[drink]--;
         });
-        delete preferenceCloned[key];
+        delete preferenceCloned[user];
       }
     }
     if (empty) {
@@ -52,26 +52,4 @@ export function findMinDrinks(preferences: Record<any, any[]>) {
     resultDrinks.add(mostPopularDrink);
   }
   return [...resultDrinks];
-  const popularDrinks = Object.keys(preferenceCount).sort(
-    (a, b) => preferenceCount[b] - preferenceCount[a]
-  );
-  const drinks: any[] = [];
-  for (let i = 0; i < popularDrinks.length; i++) {
-    if (!Object.keys(preferenceCloned).length) {
-      break;
-    }
-    for (const key in preferenceCloned) {
-      if (preferenceCloned[key].findIndex((d) => d == popularDrinks[i]) + 1) {
-        preferenceCloned[key].forEach((drink) => {
-          preferenceCount[drink]--;
-        });
-        delete preferenceCloned[key];
-        include = true;
-      }
-    }
-    if (include) {
-      drinks.push(popularDrinks[i]);
-    }
-  }
-  return drinks;
 }
