@@ -1,14 +1,6 @@
 const smallestDivisor = (ar: number[], th: number) => {
-  let min: number, max: number;
-  min = max = ar[0];
-  for (let index = 1; index < ar.length; index++) {
-    if (ar[index] < min) {
-      min = ar[index];
-    }
-    if (ar[index] > max) {
-      max = ar[index];
-    }
-  }
+  let min: number = 1,
+    max: number = Math.max(...ar);
   while (min < max) {
     const mid = Math.floor((min + max) / 2);
     if (th >= getDivSum(ar, mid)) {
@@ -30,6 +22,14 @@ const tests: { array: number[]; threshold: number }[] = [
   {
     array: [1, 2, 5, 9],
     threshold: 6,
+  },
+  {
+    array: [2, 3, 5, 7, 11],
+    threshold: 11,
+  },
+  {
+    array: [19],
+    threshold: 5,
   },
 ];
 tests.forEach((item) => {
