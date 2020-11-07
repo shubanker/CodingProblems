@@ -84,3 +84,59 @@ class ListNode {
     this.next = next === undefined ? null : next;
   }
 }
+
+//Tests
+const cases: { node1: number[]; node2: number[] }[] = [
+  {
+    node1: [7, 2, 4, 3],
+    node2: [5, 6, 4],
+  },
+  {
+    node1: [5],
+    node2: [5],
+  },
+  {
+    node1: [0],
+    node2: [0],
+  },
+];
+cases.forEach((c) => {
+  const node1 = arrayToNode(c.node1);
+  const node2 = arrayToNode(c.node2);
+  const sum = addTwoNumbers(node1, node2);
+  console.log(
+    `${nodeToString(node1, "")} + ${nodeToString(node2, "")} = ${nodeToString(
+      sum,
+      ""
+    )}`
+  );
+});
+
+function arrayToNode(ar: number[]) {
+  let head: ListNode = null;
+  let iterator: ListNode = null;
+  ar.forEach((d) => {
+    const newNode = { val: d, next: null };
+    if (iterator) {
+      iterator.next = newNode;
+      iterator = iterator.next;
+    } else {
+      iterator = newNode;
+    }
+    if (head == null) {
+      head = iterator;
+    }
+  });
+  return head;
+}
+function nodeToString(node: ListNode, joinStr = " -> ") {
+  let op = "";
+  while (node) {
+    op += node.val;
+    if (node.next) {
+      op += joinStr;
+    }
+    node = node.next;
+  }
+  return op;
+}
