@@ -20,16 +20,18 @@ function addTwoNumbers(
   let sumIterator = sumHead;
   const carryForwardHead: ListNode = { next: null, val: 0 };
   let carryForwardIterator = carryForwardHead;
-
+  //Matching length of both node, adding precedding 0's for shorter list
   if (len1 > len2) {
     l2 = addPrecedingZeros(l2, len1 - len2);
   } else if (len1 < len2) {
     l1 = addPrecedingZeros(l1, len2 - len1);
     len1 = len2;
   }
+
   let hasCarryForwards = false;
+
   for (let i = 0; i < len1; i++) {
-    //Check is required only to satisfy TS
+    //Check is required only to satisfy TS :(
     let sum = l1 && l2 ? l1.val + l2.val : 0;
     if (sum > 9) {
       carryForwardIterator.val = Math.floor(sum / 10);
@@ -37,8 +39,14 @@ function addTwoNumbers(
       hasCarryForwards = true;
     }
     sumIterator.val = sum;
-    l1 = l1 ? l1.next : l1; //Check is required only to satisfy TS
-    l2 = l2 ? l2.next : l2;
+
+    //Check is required only to satisfy Leet code TS
+    // l1 = l1 ? l1.next : l1;
+    // l2 = l2 ? l2.next : l2;
+    l1 = l1.next;
+    l2 = l2.next;
+
+    //Don't add next node for sum if we are at last iteration.
     if (i < len1 - 1) {
       sumIterator.next = { next: null, val: 0 };
       sumIterator = sumIterator.next;
