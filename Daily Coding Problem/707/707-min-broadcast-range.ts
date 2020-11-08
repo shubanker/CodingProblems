@@ -8,7 +8,7 @@ determine what the minimum broadcast range would have to be in order for each li
 For example, suppose listeners = [1, 5, 11, 20], and towers = [4, 8, 15]. 
 In this case the minimum range would be 5, since that would be required for the tower at position 15 to reach the listener at position 20.
  */
-const getMinRange = (listners: number[], towers: number[]) => {
+export const getMinRange = (listners: number[], towers: number[]) => {
   const towersSorted = towers.sort((a, b) => a - b);
   let minRange = 0;
   listners.forEach((listner) => {
@@ -20,7 +20,7 @@ const getMinRange = (listners: number[], towers: number[]) => {
   return minRange;
 };
 
-const closestTower = (listner: number, towers: number[]) => {
+export const closestTower = (listner: number, towers: number[]) => {
   let min = 0;
   let max = towers.length;
   let mid: number;
