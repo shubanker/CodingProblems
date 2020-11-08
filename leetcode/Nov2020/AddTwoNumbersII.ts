@@ -10,15 +10,12 @@
  * }
  */
 
-function addTwoNumbers(
-  l1: ListNode | null,
-  l2: ListNode | null
-): ListNode | null {
+function addTwoNumbers(l1: ListNode | null, l2: ListNode | null): ListNode | null {
   let len1 = getNodeLength(l1);
   const len2 = getNodeLength(l2);
-  const sumHead: ListNode = { next: null, val: 0 };
+  const sumHead: ListNode = new ListNode();
   let sumIterator = sumHead;
-  const carryForwardHead: ListNode = { next: null, val: 0 };
+  const carryForwardHead: ListNode = new ListNode();
   let carryForwardIterator = carryForwardHead;
   //Matching length of both node, adding precedding 0's for shorter list
   if (len1 > len2) {
@@ -48,21 +45,19 @@ function addTwoNumbers(
 
     //Don't add next node for sum if we are at last iteration.
     if (i < len1 - 1) {
-      sumIterator.next = { next: null, val: 0 };
+      sumIterator.next = new ListNode();
       sumIterator = sumIterator.next;
     }
     carryForwardIterator.next = { val: 0, next: null };
     carryForwardIterator = carryForwardIterator.next;
   }
 
-  return hasCarryForwards
-    ? addTwoNumbers(sumHead, carryForwardHead)
-    : removePresedingZeros(sumHead);
+  return hasCarryForwards ? addTwoNumbers(sumHead, carryForwardHead) : removePresedingZeros(sumHead);
 }
 function addPrecedingZeros(node: ListNode | null, len: number) {
   let head = node;
   for (let index = 0; index < len; index++) {
-    const newNode: ListNode = { val: 0, next: head };
+    const newNode: ListNode = new ListNode(0, head);
     head = newNode;
   }
   return head;
@@ -71,7 +66,7 @@ function removePresedingZeros(node: ListNode | null) {
   while (node && !node.val) {
     node = node.next;
   }
-  return node || { next: null, val: 0 };
+  return node || new ListNode();
 }
 function getNodeLength(node: ListNode | null) {
   let length = 0;
@@ -107,24 +102,23 @@ const cases: { node1: number[]; node2: number[] }[] = [
     node1: [0],
     node2: [0],
   },
+  {
+    node1: [8, 9, 8, 9, 8, 9, 8, 9, 8, 9, 8, 9, 8, 9, 8, 9, 8, 9, 8, 9, 8, 9, 8, 9, 8, 9, 8, 9, 8, 9, 8, 9],
+    node2: [8, 9, 8, 9, 8, 9, 8, 9, 8, 9, 8, 9, 8, 9, 8, 9],
+  },
 ];
 cases.forEach((c) => {
   const node1 = arrayToNode(c.node1);
   const node2 = arrayToNode(c.node2);
   const sum = addTwoNumbers(node1, node2);
-  console.log(
-    `${nodeToString(node1, "")} + ${nodeToString(node2, "")} = ${nodeToString(
-      sum,
-      ""
-    )}`
-  );
+  console.log(`${nodeToString(node1, "")} + ${nodeToString(node2, "")} = ${nodeToString(sum, "")}`);
 });
 
 function arrayToNode(ar: number[]) {
   let head: ListNode = null;
   let iterator: ListNode = null;
   ar.forEach((d) => {
-    const newNode = { val: d, next: null };
+    const newNode = new ListNode(d);
     if (iterator) {
       iterator.next = newNode;
       iterator = iterator.next;
