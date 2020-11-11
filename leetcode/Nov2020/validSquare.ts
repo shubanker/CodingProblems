@@ -44,8 +44,9 @@ function validSquare(p1: number[], p2: number[], p3: number[], p4: number[]): bo
   const side1 = getDistanceSq(points[0], points[1]);
   const side2 = getDistanceSq(points[0], points[2]);
   const digonal = getDistanceSq(points[0], points[3]);
+  const digonal2 = getDistanceSq(points[1], points[2]);
 
-  return side1 > 0 && side1 === side2 && digonal === side1 * 2;
+  return side1 > 0 && side1 === side2 && digonal === digonal2;
 }
 
 //Tests
