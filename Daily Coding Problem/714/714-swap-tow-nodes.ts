@@ -25,3 +25,28 @@ interface Nodee {
   value: number;
   next: Nodee;
 }
+
+//Tests.
+const array2nodee = (elements: number[]) => {
+  let head: Nodee = null,
+    last: Nodee = null;
+  elements.forEach((value) => {
+    const node: Nodee = { value, next: null };
+    if (head == null) {
+      head = node;
+    } else {
+      last.next = node;
+    }
+    last = node;
+  });
+  return head;
+};
+const nodeToAr = (root: Nodee) => {
+  const elements = [];
+  while (root) {
+    elements.push(root.value);
+    root = root.next;
+  }
+  return elements;
+};
+console.log(nodeToAr(swapTwoNodes(array2nodee([1, 2, 3, 4, 5]))));
