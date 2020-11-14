@@ -21,3 +21,7 @@ const swapTwoNodes = (head: Nodee) => {
   }
   return head;
 };
+interface Nodee {
+  value: number;
+  next: Nodee;
+}
