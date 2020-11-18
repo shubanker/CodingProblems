@@ -23,12 +23,7 @@ intervals[i].length == 2
 0 <= starti <= endi <= 104
  */
 function merge(intervals: number[][]): number[][] {
-  intervals.sort((a, b) => {
-    if (a[0] === b[0]) {
-      return a[1] - b[1];
-    }
-    return a[0] - b[0];
-  });
+  intervals.sort((a, b) => a[0] - b[0] || a[1] - b[1]);
   for (let index = 0; index < intervals.length - 1; index++) {
     let nextInterval = index + 1;
     while (nextInterval < intervals.length && intervals[index][1] >= intervals[nextInterval][0]) {
