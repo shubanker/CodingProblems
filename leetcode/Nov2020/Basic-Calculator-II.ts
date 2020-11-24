@@ -75,3 +75,32 @@ function calculate(s: string) {
   }
   return operations[0] || 0;
 }
+{
+  // tests
+  const test = {
+    "3+2*2": 7,
+    "3*2+2": 8,
+    32: 32,
+    "3+5 / 2 ": 5,
+    "0-2147483647": -2147483647,
+  };
+  let passed = 0;
+  const failed: { input: string; output: string; expected: any }[] = [];
+  for (const key in test) {
+    const res = calculate(key);
+    if (test[key] === res) {
+      passed++;
+    } else {
+      failed.push({
+        expected: test[key],
+        input: key,
+        output: res,
+      });
+    }
+  }
+  console.log(`${passed}/${Object.keys(test).length} cases passed`);
+  failed.length &&
+    failed.forEach((failure) => {
+      console.log(`Input: ${failure.input}  Output: ${failure.output}\nExpected Output: ${failure.expected}`);
+    });
+}
