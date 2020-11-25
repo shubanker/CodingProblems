@@ -39,6 +39,9 @@ All the values in digits are unique.
 function atMostNGivenDigitSet(digits: string[], n: number): number {
   const intAr = digits.map((d) => +d).sort((a, b) => a - b);
 
+  //Alternative slower approach to decrement until we find max
+  // const largestPossibleValue = findlargestComboDecremental(intAr, n);
+
   const largestPossibleValue = findlargestCombo(intAr, n);
   // console.log(largestPossibleValue);
   const base = digits.length;
@@ -66,6 +69,45 @@ function atMostNGivenDigitSet(digits: string[], n: number): number {
   );
 }
 function findlargestCombo(digits: number[], n: number) {
+  let length = n.toString().length;
+  let ar = new Array(length).fill(digits[0]);
+  //If is enough still just in case
+  while (ar.length && +ar.join("") > n) {
+    ar.pop();
+  }
+  let index = 0;
+  while (true) {
+    const newAr = increseByOneLeft(ar, digits, index);
+    if (+newAr.join("") > n || (ar === newAr && index < ar.length)) {
+      index++;
+    } else if (ar === newAr) {
+      break;
+    } else {
+      ar = newAr;
+    }
+    if (index >= ar.length) {
+      break;
+    }
+  }
+  return +ar.join("");
+}
+function increseByOneLeft(original: number[], digits: number[], index: number) {
+  const ar = [...original];
+  const number = ar[index];
+  const nextIndex = digits.indexOf(number) + 1;
+  if (nextIndex === digits.length) {
+    return original;
+  }
+  const nextNumber = digits[digits.indexOf(number) + 1];
+  ar[index] = nextNumber;
+  for (let i = index + 1; i < ar.length; i++) {
+    ar[i] = digits[0];
+  }
+  return ar;
+}
+
+//Alternative Approach
+function findlargestComboDecremental(digits: number[], n: number) {
   let length = n.toString().length;
   const ar = new Array(length).fill(digits[digits.length - 1]);
   while (+ar.join("") > n) {
@@ -119,3 +161,10 @@ function decrementFromBack(numberArray: number[], digits: number[]) {
 console.log(atMostNGivenDigitSet(["1", "3", "5", "7"], 100));
 console.log(atMostNGivenDigitSet(["1", "3", "5", "7"], 76));
 console.log(atMostNGivenDigitSet(["1", "4", "9"], 1000000000));
+console.log(atMostNGivenDigitSet(["1", "3", "4", "5", "6", "8", "9"], 270214721));
+console.log(atMostNGivenDigitSet(["3", "5", "6", "7", "8"], 6)); //3
+console.log(atMostNGivenDigitSet(["3", "4", "5", "6"], 64));
+
+console.log(atMostNGivenDigitSet(["5", "7", "8"], 59));
+console.log(subtractOne([5], [5, 7, 8]));
+console.log(findlargestCombo([3, 5], 4));
