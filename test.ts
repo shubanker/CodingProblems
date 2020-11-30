@@ -3,13 +3,14 @@ export function runTests(
     arguments: any[];
     output: any;
   }[],
-  method: (...args: any) => any
+  method: (...args: any) => any,
+  equalityChecker: (a: any, b: any) => boolean = (a, b) => a === b
 ) {
   let passedCases = 0;
   const failedList = [];
   testCases.forEach((test) => {
     const result = method(...test.arguments);
-    if (result === test.output) {
+    if (equalityChecker(result, test.output)) {
       passedCases++;
     } else {
       failedList.push({
