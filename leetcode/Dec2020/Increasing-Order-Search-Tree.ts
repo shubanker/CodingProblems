@@ -45,8 +45,10 @@ The number of nodes in the given tree will be in the range [1, 100].
       return null;
     }
     let leftMost = root;
-    while (leftMost.left) {
-      leftMost = leftMost.left;
+    if (!checkLeft) {
+      while (leftMost.left) {
+        leftMost = leftMost.left;
+      }
     }
     const leftTail: TreeNode | null = rearrangeTree(root.left);
     if (leftTail) {
@@ -61,7 +63,7 @@ The number of nodes in the given tree will be in the range [1, 100].
       }
       return rightest;
     }
-    return leftMost || root;
+    return leftMost;
   }
   //Class
   class TreeNode {
