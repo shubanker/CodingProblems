@@ -36,7 +36,31 @@ The number of nodes in the given tree will be in the range [1, 100].
  */
 
 {
+  //Stack Implementation
   function increasingBST(root: TreeNode | null): TreeNode | null {
+    const stack: TreeNode[] = [];
+    let curr = root;
+    let prev: TreeNode | null = null;
+    let head: TreeNode | null = null;
+    while (stack.length || curr) {
+      while (curr) {
+        stack.push(curr);
+        curr = curr.left;
+      }
+      const top = stack.pop();
+      top.left = null;
+      if (!head) {
+        head = top;
+      }
+      if (prev) {
+        prev.right = top;
+      }
+      prev = top;
+      curr = top.right;
+    }
+    return head;
+  }
+  function increasingBSTRecursive(root: TreeNode | null): TreeNode | null {
     return rearrangeTree(root, false);
   }
 
