@@ -63,20 +63,29 @@ The values of the nodes in the tree are unique.
       this.right = right === undefined ? null : right;
     }
   }
-
+  let heightMemo: Map<TreeNode, number>;
   function subtreeWithAllDeepest(root: TreeNode | null): TreeNode | null {
+    heightMemo = new Map();
+    return getSUbTreeWithDeepest(root);
+  }
+  const getSUbTreeWithDeepest = (root: TreeNode | null) => {
     const leftHeight = getHeight(root.left);
     const rightHeight = getHeight(root.right);
     if (leftHeight === rightHeight) {
       return root;
     }
-    return subtreeWithAllDeepest(leftHeight < rightHeight ? root.right : root.left);
-  }
+    return getSUbTreeWithDeepest(leftHeight < rightHeight ? root.right : root.left);
+  };
   const getHeight = (root: TreeNode | null) => {
-    if (!root) {
-      return 0;
+    if (heightMemo.has(root)) {
+      return heightMemo.get(root);
     }
-    return Math.max(getHeight(root.left), getHeight(root.right)) + 1;
+    let height = 0;
+    if (root) {
+      height = Math.max(getHeight(root.left), getHeight(root.right)) + 1;
+    }
+    heightMemo.set(root, height);
+    return height;
   };
 
   //Utils
