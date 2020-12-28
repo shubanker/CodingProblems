@@ -22,8 +22,20 @@ On the third move we step from -1 to 2.
 Note:
 target will be a non-zero integer in the range [-10^9, 10^9].
  */
-
 function reachNumber(target: number): number {
+  target = Math.abs(target);
+  let totalUntil = 0,
+    step = 0;
+  while (target > totalUntil) {
+    totalUntil += ++step;
+  }
+
+  if (target === totalUntil || (totalUntil - target) % 2 === 0) {
+    return step;
+  }
+  return step + (step % 2 ? 2 : 1);
+}
+function reachNumber_BFS(target: number): number {
   let stack: number[] = [0];
   let steps = 0;
   const nextSteps = new Set<number>();
@@ -40,4 +52,4 @@ function reachNumber(target: number): number {
     nextSteps.clear();
   } while (stack.length);
 }
-console.log(reachNumber(2));
+console.log(reachNumber(3));
