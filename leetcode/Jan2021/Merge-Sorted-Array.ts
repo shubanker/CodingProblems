@@ -28,31 +28,33 @@ nums2.length == n
 /**
  Do not return anything, modify nums1 in-place instead.
  */
-function merge(nums1: number[], m: number, nums2: number[], n: number): void {
-  nums1.length = m;
-  nums2.length = n;
-  let min = 0;
-  let max = nums1.length,
-    mid: number = 0;
-  nums2.forEach((num) => {
-    while (min < max) {
-      mid = min + Math.floor((max - min) / 2);
-      if (nums1[mid] === num) {
-        break;
-      } else if (nums1[mid] < num) {
-        min = mid + 1;
-      } else {
-        max = mid - 1;
+{
+  const merge = (nums1: number[], m: number, nums2: number[], n: number) => {
+    nums1.length = m;
+    nums2.length = n;
+    let min = 0;
+    let max = nums1.length,
+      mid: number = 0;
+    nums2.forEach((num) => {
+      while (min < max) {
+        mid = min + Math.floor((max - min) / 2);
+        if (nums1[mid] === num) {
+          break;
+        } else if (nums1[mid] < num) {
+          min = mid + 1;
+        } else {
+          max = mid - 1;
+        }
       }
-    }
-    mid = Math.max(0, mid - 2);
-    while (nums1[mid] < num) {
-      mid++;
-    }
-    nums1.splice(mid, 0, num);
-    min = mid;
-  });
+      mid = Math.max(0, mid - 2);
+      while (nums1[mid] < num) {
+        mid++;
+      }
+      nums1.splice(mid, 0, num);
+      min = mid;
+    });
+  };
+  const a = [4, 5, 6, 0, 0, 0];
+  merge(a, 3, [1, 2, 3], 3);
+  console.log(a);
 }
-const a = [4, 5, 6, 0, 0, 0];
-merge(a, 3, [1, 2, 3], 3);
-console.log(a);
