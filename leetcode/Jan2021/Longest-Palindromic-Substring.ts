@@ -30,28 +30,22 @@ s consist of only digits and English letters (lower-case and/or upper-case),
  */
 function longestPalindrome(s: string): string {
   let maxPalin = "";
-  for (let index = 0; index < s.length; index++) {
-    const palin = getLongestPOintWithCenter(s, index);
-    if (palin.length > maxPalin.length) {
-      maxPalin = palin;
-    }
+  for (let index = 0; index < s.length && (s.length - index) * 2 > maxPalin.length; index++) {
+    maxPalin = getMaxLenStr(
+      maxPalin,
+      getLongestPOintWithCenter(s, index, index),
+      getLongestPOintWithCenter(s, index, index + 1)
+    );
   }
   return maxPalin;
 }
-const getLongestPOintWithCenter = (s: string, center: number) => {
-  let back = center,
-    front = center;
+const getMaxLenStr = (...strs: string[]) => {
+  return strs.reduce((a, b) => (a.length > b.length ? a : b));
+};
+const getLongestPOintWithCenter = (s: string, back: number, front: number) => {
   while (s[back] && s[back] === s[front]) {
     back--;
     front++;
   }
-  const palinString1 = s.slice(back + 1, front);
-  back = center;
-  front = center + 1;
-  while (s[back] && s[back] === s[front]) {
-    back--;
-    front++;
-  }
-  const palinString2 = s.slice(back + 1, front);
-  return palinString2.length > palinString1.length ? palinString2 : palinString1;
+  return s.slice(back + 1, front);
 };
