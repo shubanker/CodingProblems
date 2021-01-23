@@ -32,7 +32,7 @@ function diagonalSort(mat: number[][]): number[][] {
   return mat;
 }
 const sortDigonal = (mat: number[][], i: number, j: number) => {
-  for (; i < mat.length; i++) {
+  for (; i < mat.length; i++, j++) {
     let minIndexHeight = i;
     for (let k = i + 1; k < mat.length; k++) {
       if (j + k - i >= mat[0].length) {
