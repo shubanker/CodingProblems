@@ -20,8 +20,9 @@ n == mat[i].length
 1 <= m, n <= 100
 1 <= mat[i][j] <= 100
  */
+
+//Cleaner code with extra space
 function diagonalSort(mat: number[][]): number[][] {
-  const height = mat.length;
   const len = mat[0]?.length;
   for (let index = 0; index < mat.length; index++) {
     sortDigonal(mat, index, 0);
@@ -32,6 +33,30 @@ function diagonalSort(mat: number[][]): number[][] {
   return mat;
 }
 const sortDigonal = (mat: number[][], i: number, j: number) => {
+  const digonalAr = [];
+  let h = i,
+    b = j;
+  while (mat[h]?.[b]) {
+    digonalAr.push(mat[h++][b++]);
+  }
+  digonalAr.sort((a, b) => a - b);
+  digonalAr.forEach((n, p) => {
+    mat[p + i][j + p] = n;
+  });
+};
+
+//In Place sorting without extra space.
+function diagonalSort_InPlace(mat: number[][]): number[][] {
+  const len = mat[0]?.length;
+  for (let index = 0; index < mat.length; index++) {
+    sortDigonal_Inplace(mat, index, 0);
+  }
+  for (let index = 1; index < len; index++) {
+    sortDigonal_Inplace(mat, 0, index);
+  }
+  return mat;
+}
+const sortDigonal_Inplace = (mat: number[][], i: number, j: number) => {
   for (; i < mat.length; i++, j++) {
     let minIndexHeight = i;
     for (let k = i + 1; k < mat.length; k++) {
