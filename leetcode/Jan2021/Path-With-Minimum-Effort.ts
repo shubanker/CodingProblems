@@ -54,6 +54,7 @@ function minimumEffortPath(heights: number[][]): number {
   return minEffort === Infinity ? 0 : minEffort;
 }
 const minEffortForPath = (heights: number[][], i: number, j: number, effort: number) => {
+  const nextPaths = [];
   possibleNeighbours.forEach((neighbour) => {
     const ii = neighbour[0] + i;
     const jj = neighbour[1] + j;
@@ -69,13 +70,18 @@ const minEffortForPath = (heights: number[][], i: number, j: number, effort: num
         if (ii === heights.length - 1 && jj === heights[0].length - 1) {
           minEffort = Math.min(minEffort, newEf);
         } else if (newEf < minEffort) {
-          minEffortForPath(heights, ii, jj, newEf);
+          nextPaths.push({ heights, ii, jj, newEf });
         }
       } else if (!pathCache.has(index)) {
         pathCache.set(index, newEf);
       }
     }
   });
+  nextPaths
+    .sort((a, b) => a.newEf - b.newEf)
+    .forEach((p) => {
+      minEffortForPath(p.heights, p.ii, p.jj, p.newEf);
+    });
 };
 
 console.log(minimumEffortPath([[3]]));
