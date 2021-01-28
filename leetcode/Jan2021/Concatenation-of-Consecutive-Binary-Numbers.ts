@@ -29,9 +29,29 @@ Constraints:
 1 <= n <= 105
  */
 
-//Optimal Approach
-
+//with memoising for multiple testCases
+const memoised = [0];
 function concatenatedBinary(n: number): number {
+  if (memoised[n]) {
+    return memoised[n];
+  }
+  const mod = Math.pow(10, 9) + 7;
+  let op = memoised[memoised.length - 1];
+  for (let i = memoised.length; i <= n; i++) {
+    let tem = i;
+    do {
+      op <<= 1;
+      op %= mod;
+    } while ((tem >>= 1));
+    op += i;
+    op %= mod;
+    memoised[i] = op;
+  }
+  return op;
+}
+
+//Optimal Approach
+function concatenatedBinary_(n: number): number {
   const mod = Math.pow(10, 9) + 7;
   let op = 0;
   for (let i = 1; i <= n; i++) {
