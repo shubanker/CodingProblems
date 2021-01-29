@@ -58,7 +58,6 @@ The number of nodes in the tree is in the range [1, 1000].
     const verticalTraversal = (root: TreeNode | null) => {
       const verticalMap = new Map<number, nodeWithCordinates[]>();
       let stack: nodeWithCordinates[] = [{ x: 0, y: 0, node: root }];
-      let y = 0;
       while (stack.length) {
         const childs: nodeWithCordinates[] = [];
         stack.forEach((n) => {
@@ -76,21 +75,12 @@ The number of nodes in the tree is in the range [1, 1000].
         stack = childs;
       }
       const xAxis = [...verticalMap.keys()].sort((a, b) => a - b);
-      const op: number[][] = [];
-      xAxis.forEach((x) => {
-        const n = verticalMap.get(x);
-        op.push(
-          n
-            .sort((a, b) => {
-              if (a.y === b.y) {
-                return a.node.val - b.node.val;
-              }
-              return b.y - a.y;
-            })
-            .map((x) => x.node.val)
-        );
-      });
-      return op;
+      return xAxis.map((x) =>
+        verticalMap
+          .get(x)
+          .sort((a, b) => b.y - a.y || a.node.val - b.node.val)
+          .map((x) => x.node.val)
+      );
     };
   }
   {
