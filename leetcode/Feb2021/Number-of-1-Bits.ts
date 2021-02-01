@@ -47,8 +47,15 @@ function hammingWeight_shift(n: number): number {
     if ((n << 1) >>> 1 !== n) {
       count++;
     }
-    n <<= 1;
-    n >>>= 0;
+    n = (n << 1) >>> 0;
+  }
+  return count;
+}
+function hammingWeight_shift_leaner(n: number): number {
+  let count = 0;
+  while (n > 0) {
+    count += n & 1;
+    n >>>= 1;
   }
   return count;
 }
