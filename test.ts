@@ -2,19 +2,22 @@ export function runTests(
   testCases: {
     arguments: any[];
     output: any;
+    key?: any;
   }[],
   method: (...args: any) => any,
   equalityChecker: (a: any, b: any) => boolean = (a, b) => a === b
 ) {
   let passedCases = 0;
   const failedList = [];
-  testCases.forEach((test) => {
+  testCases.forEach((test, i) => {
     const result = method(...test.arguments);
     if (equalityChecker(result, test.output)) {
       passedCases++;
     } else {
       failedList.push({
-        ...test,
+        key: test.key || i,
+        arguments: test.arguments,
+        expected: test.output,
         actualOutput: result,
       });
     }
