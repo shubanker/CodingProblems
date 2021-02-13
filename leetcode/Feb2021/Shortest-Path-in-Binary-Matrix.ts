@@ -84,6 +84,65 @@ function shortestPathBinaryMatrix(grid: number[][]): number {
   return -1;
 }
 
+function shortestPathBinaryMatrix_withSorting(grid: number[][]): number {
+  if (grid[0]?.[0] !== 0) {
+    return -1;
+  }
+  if (grid.length === 1) {
+    return 1;
+  }
+  let nextQueue = ["0,0"];
+  const visited = new Set<string>();
+  const cordinatesMap = new Map<string, { x: number; y: number }>();
+  cordinatesMap.set(nextQueue[0], { x: 0, y: 0 });
+  let steps = 0;
+  const neighboursCordinates = [
+    [-1, -1],
+    [-1, 0],
+    [-1, 1],
+    [0, -1],
+    [0, 1],
+    [1, -1],
+    [1, 0],
+    [1, 1],
+  ];
+  while (nextQueue.length) {
+    nextQueue.sort((a, b) => {
+      const c1 = cordinatesMap.get(a);
+      const c2 = cordinatesMap.get(b);
+      return (
+        Math.sqrt(Math.pow(c1.x - grid.length - 1, 2) + Math.pow(c1.y - grid.length - 1, 2)) -
+        Math.sqrt(Math.pow(c2.x - grid.length - 1, 2) + Math.pow(c2.y - grid.length - 1, 2))
+      );
+    });
+    const nextSet = new Set<string>();
+    steps++;
+
+    for (let i = 0; i < nextQueue.length; i++) {
+      if (visited.has(nextQueue[i])) {
+        continue;
+      }
+      const { x, y } = cordinatesMap.get(nextQueue[i]);
+      visited.add(nextQueue[i]);
+      for (let j = 0; j < neighboursCordinates.length; j++) {
+        const [a, b] = neighboursCordinates[j];
+        const nextX = a + x;
+        const nextY = b + y;
+        const nextIndex = `${nextX},${nextY}`;
+        cordinatesMap.set(nextIndex, { x: nextX, y: nextY });
+        const nextValid = grid[nextX]?.[nextY] === 0;
+        if (nextX === grid.length - 1 && nextY === grid[0].length - 1) {
+          return nextValid ? steps + 1 : -1;
+        }
+        if (nextValid && !visited.has(nextIndex)) {
+          nextSet.add(nextIndex);
+        }
+      }
+    }
+    nextQueue = [...nextSet];
+  }
+  return -1;
+}
 console.log(shortestPathBinaryMatrix([[0]]));
 console.log(
   runTests(
