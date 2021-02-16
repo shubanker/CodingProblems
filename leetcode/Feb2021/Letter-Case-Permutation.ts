@@ -32,18 +32,22 @@ S will consist only of letters or digits.
 function letterCasePermutation(S: string): string[] {
   S = S.toLowerCase();
   const charIndex: number[] = [];
+  const combinations = [S];
+
+  //Extracting locations of non numeric characters.
   for (let i = 0; i < S.length; i++) {
     if (Number.isNaN(+S.charAt(i))) {
-      charIndex.push(i);
+      charIndex.push(i); //charIndex array can be saved by moving below logic here.
     }
   }
-  const incrementUpper = (str: string, index: number) =>
+  const makeUpperCaseAt = (str: string, index: number) =>
     str.slice(0, index) + str.charAt(index).toUpperCase() + str.slice(index + 1);
-  const combinations = [S];
+
+  //For each character double array and make character at that Index to upperCase.
   charIndex.forEach((charInd) => {
     const length = combinations.length;
     for (let i = 0; i < length; i++) {
-      combinations.push(incrementUpper(combinations[i], charInd));
+      combinations.push(makeUpperCaseAt(combinations[i], charInd));
     }
   });
   return combinations;
