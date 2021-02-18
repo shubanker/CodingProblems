@@ -33,9 +33,12 @@ function numberOfArithmeticSlices(A: number[]): number {
   let count = 0;
   for (let i = 0; i < diffAr.length - 1; i++) {
     let j = i + 1;
-    while (j < diffAr.length && diffAr[j++] === diffAr[i]) {
-      count++;
+    while (j < diffAr.length && diffAr[j] === diffAr[i]) {
+      j++;
     }
+    const n = j - i - 1;
+    count += (n * (n + 1)) / 2;
+    i = j - 1;
   }
   return count;
 }
