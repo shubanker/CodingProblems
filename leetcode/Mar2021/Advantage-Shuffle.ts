@@ -30,8 +30,7 @@ function advantageCount(A: number[], B: number[]): number[] {
   const revesitIndex = [];
   B.forEach((num) => {
     //Find the least number in A which is greater than A and is not taken already.
-    const finding = binarySearch(A, num);
-    let index = finding;
+    let index = binarySearch(A, num);
     while (A[index] <= num || takenIndex.has(index)) {
       index++;
     }
@@ -77,3 +76,32 @@ console.log(advantageCount([15448, 14234, 13574, 19893, 6475], [14234, 6475, 198
 
 // console.log(advantageCount([12, 24, 8, 32], [13, 25, 32, 11]));
 // console.log(advantageCount([2, 7, 11, 15], [1, 10, 4, 11]));
+
+//Faster algo
+function advantageCount_(A: number[], B: number[]): number[] {
+  A.sort((a, b) => a - b);
+  const C = B.slice().sort((a, b) => a - b);
+  let a = 0;
+  let c = 0;
+  const answers: Record<number, number[]> = {};
+  const rest: number[] = [];
+
+  while (a < A.length && c < C.length) {
+    if (A[a] > C[c]) {
+      if (answers[C[c]] === undefined) {
+        answers[C[c]] = [A[a]];
+      } else {
+        answers[C[c]].push(A[a]);
+      }
+      c++;
+    } else if (A[a] <= C[c]) {
+      rest.push(A[a]);
+    }
+    a++;
+  }
+
+  return B.map((b) => {
+    const c = (answers[b] || []).pop();
+    return c === undefined ? rest.pop() : c;
+  });
+}
