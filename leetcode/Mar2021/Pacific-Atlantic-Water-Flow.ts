@@ -32,6 +32,8 @@ Return:
 (positions with parentheses in above matrix).
  */
 
+import { runTests } from "../../test";
+
 {
   function pacificAtlantic(matrix: number[][]): number[][] {
     let pacificStack: string[] = [];
@@ -87,26 +89,86 @@ Return:
     }
   };
   console.log(
-    pacificAtlantic([
-      [3, 3, 3, 3, 3, 3],
-      [3, 0, 3, 3, 0, 3],
-      [3, 3, 3, 3, 3, 3],
-    ])
-  );
-  console.log(
-    pacificAtlantic([
-      [3, 3, 3],
-      [3, 1, 3],
-      [0, 2, 4],
-    ])
-  );
-  console.log(
-    pacificAtlantic([
-      [1, 2, 2, 3, 5],
-      [3, 2, 3, 4, 4],
-      [2, 4, 5, 3, 1],
-      [6, 7, 1, 4, 5],
-      [5, 1, 1, 2, 4],
-    ])
+    runTests(
+      [
+        {
+          arguments: [
+            [
+              [3, 3, 3, 3, 3, 3],
+              [3, 0, 3, 3, 0, 3],
+              [3, 3, 3, 3, 3, 3],
+            ],
+          ],
+          output: [
+            [0, 0],
+            [0, 1],
+            [0, 2],
+            [0, 3],
+            [0, 4],
+            [0, 5],
+            [1, 0],
+            [1, 2],
+            [1, 3],
+            [1, 5],
+            [2, 0],
+            [2, 1],
+            [2, 2],
+            [2, 3],
+            [2, 4],
+            [2, 5],
+          ],
+        },
+        {
+          arguments: [
+            [
+              [3, 3, 3],
+              [3, 1, 3],
+              [0, 2, 4],
+            ],
+          ],
+          output: [
+            [0, 0],
+            [0, 1],
+            [0, 2],
+            [1, 0],
+            [1, 2],
+            [2, 0],
+            [2, 1],
+            [2, 2],
+          ],
+        },
+        {
+          arguments: [
+            [
+              [1, 2, 2, 3, 5],
+              [3, 2, 3, 4, 4],
+              [2, 4, 5, 3, 1],
+              [6, 7, 1, 4, 5],
+              [5, 1, 1, 2, 4],
+            ],
+          ],
+          output: [
+            [0, 4],
+            [1, 3],
+            [1, 4],
+            [2, 2],
+            [3, 0],
+            [3, 1],
+            [4, 0],
+          ],
+        },
+      ],
+      pacificAtlantic,
+      (a: number[][], b: number[][]) => {
+        if (a?.length !== b?.length) {
+          return false;
+        }
+        const seta = new Set(a.map((i) => i.join(",")));
+        b.forEach((cord) => {
+          seta.delete(cord?.join(","));
+        });
+        return seta.size === 0;
+      }
+    )
   );
 }
