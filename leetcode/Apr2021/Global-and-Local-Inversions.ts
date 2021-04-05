@@ -24,7 +24,7 @@ A will be a permutation of [0, 1, ..., A.length - 1].
 A will have length in range [1, 5000].
 The time limit for this problem has been reduced.
  */
-function isIdealPermutation(A: number[], c: any = []): boolean {
+function isIdealPermutation(A: number[]): boolean {
   let currentMax = A[0];
   let isValid = true;
   for (let i = 0; isValid && i < A.length - 2; i++) {
@@ -33,7 +33,7 @@ function isIdealPermutation(A: number[], c: any = []): boolean {
   }
   return isValid;
 }
-function isIdealPermutation_(A: number[], c: any = []): boolean {
+function isIdealPermutation_(A: number[]): boolean {
   for (let i = 0; i < A.length; i++) {
     if (i % 2 == 0) {
       if (A[i] < i) {
@@ -52,4 +52,4 @@ function isIdealPermutation_(A: number[], c: any = []): boolean {
   }
   return true;
 }
-isIdealPermutation([1, 0, 2, 4, 3], [0, 1, 2, 3, 4]);
+isIdealPermutation([1, 0, 2, 4, 3]);
