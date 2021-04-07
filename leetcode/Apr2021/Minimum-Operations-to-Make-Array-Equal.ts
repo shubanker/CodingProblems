@@ -25,10 +25,12 @@ Constraints:
 
 1 <= n <= 10^4
  */
-function minOperations(n: number): number {
-  let sum = 0;
-  for (let i = 0; i < n / 2; i++) {
-    sum += n - (2 * i + 1);
-  }
-  return sum;
+{
+  const minOperations = (n: number) => {
+    let sum = 0;
+    for (let i = 0; i < n / 2; i++) {
+      sum += n - (2 * i + 1);
+    }
+    return sum;
+  };
 }
