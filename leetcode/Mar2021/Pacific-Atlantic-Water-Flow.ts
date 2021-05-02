@@ -157,6 +157,10 @@ import { runTests } from "../../test";
             [4, 0],
           ],
         },
+        {
+          arguments: [[]],
+          output: [],
+        },
       ],
       pacificAtlantic,
       (a: number[][], b: number[][]) => {

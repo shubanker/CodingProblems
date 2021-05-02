@@ -53,9 +53,9 @@ Node values are digits from 1 to 9.
     if (!root) {
       return 0;
     }
-    oddSets.delete(root.val) || oddSets.add(root.val);
+    oddSets.delete(root.val) || oddSets.add(root.val); //if value exists remove it else add in set.
     if (!root.left && !root.right) {
-      return oddSets.size > 1 ? 0 : 1;
+      return oddSets.size > 1 ? 0 : 1; //Leaf Node, checking if count of odd values is not >1
     }
     return checkPathForPalin(root.left, new Set(oddSets)) + checkPathForPalin(root.right, oddSets);
   };

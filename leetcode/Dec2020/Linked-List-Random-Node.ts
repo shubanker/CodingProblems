@@ -1,3 +1,4 @@
+import { ListNode } from "../_includes/listNode";
 /**
 Linked List Random Node
 Given a singly linked list, return a random node's value from the linked list. Each node must have the same probability of being chosen.

@@ -1,3 +1,4 @@
+import { ListNode } from "../_includes/listNode";
 /**
  * Definition for singly-linkeAdd Two Numbers IId list.
  * class ListNode {
@@ -76,16 +77,6 @@ function getNodeLength(node: ListNode | null) {
     iterator = iterator.next;
   }
   return length;
-}
-
-//Types
-class ListNode {
-  val: number;
-  next: ListNode | null;
-  constructor(val?: number, next?: ListNode | null) {
-    this.val = val === undefined ? 0 : val;
-    this.next = next === undefined ? null : next;
-  }
 }
 
 //Tests

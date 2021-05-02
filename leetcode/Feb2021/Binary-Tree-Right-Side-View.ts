@@ -15,7 +15,7 @@ Explanation:
   5     4       <---
  */
 
-import { TreeNode } from "../types/treeNode";
+import { TreeNode } from "../_includes/treeNode";
 
 function rightSideView(root: TreeNode | null): number[] {
   const rights: number[] = [];

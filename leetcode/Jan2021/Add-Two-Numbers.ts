@@ -49,7 +49,7 @@ It is guaranteed that the list represents a number that does not have leading ze
     }
   }
 
-  function addTwoNumbers(l1: ListNode | null, l2: ListNode | null): ListNode | null {
+  const addTwoNumbers = (l1: ListNode | null, l2: ListNode | null) => {
     let sumHead: ListNode | null, iterator: ListNode | null;
     let carryForward = 0;
     while (l1 || l2) {
@@ -69,5 +69,5 @@ It is guaranteed that the list represents a number that does not have leading ze
       iterator.next = new ListNode(carryForward);
     }
     return sumHead;
-  }
+  };
 }
