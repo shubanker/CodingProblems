@@ -1,3 +1,4 @@
+import { TreeNode } from "../_includes/treeNode";
 /**
 Deepest Leaves Sum
 Given the root of a binary tree, return the sum of values of its deepest leaves.

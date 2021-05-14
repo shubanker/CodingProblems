@@ -1,3 +1,4 @@
+import { TreeNode } from "../_includes/treeNode";
 /**
 Average of Levels in Binary Tree
 Given a non-empty binary tree, return the average value of the nodes on each level in the form of an array.
@@ -14,6 +15,7 @@ The average value of nodes on level 0 is 3,  on level 1 is 14.5, and on level 2 
 Note:
 The range of node's value is in the range of 32-bit signed integer.
  */
+
 /**
  * Definition for a binary tree node.
  * class TreeNode {
@@ -27,16 +29,6 @@ The range of node's value is in the range of 32-bit signed integer.
  *     }
  * }
  */
-class TreeNode {
-  val: number;
-  left: TreeNode | null;
-  right: TreeNode | null;
-  constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
-    this.val = val === undefined ? 0 : val;
-    this.left = left === undefined ? null : left;
-    this.right = right === undefined ? null : right;
-  }
-}
 function averageOfLevels(root: TreeNode | null): number[] {
   const op: number[] = [];
   if (!root) {

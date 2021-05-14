@@ -51,6 +51,7 @@ function superpalindromesInRange_original(left: string, right: string): number {
   };
   for (let i = minSqrt; i <= maxSqrt; i++) {
     if (isPalin(i)) {
+      // @ts-ignore
       let sq = BigInt(i);
       sq *= sq;
       if (sq <= r && isPalin(sq)) {
