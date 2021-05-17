@@ -41,7 +41,7 @@ function longestStrChain(words: string[]): number {
       continue;
     }
     for (const word of wordsSets[i]) {
-      let wordVal = DP.get(word) ?? 1;
+      const wordVal = DP.get(word) ?? 1;
       for (let j = 0; j < word.length; j++) {
         const smallStr = word.slice(0, j) + word.slice(j + 1);
         if (wordsSets[i - 1].has(smallStr) && wordVal >= (DP.get(smallStr) ?? 1)) {
