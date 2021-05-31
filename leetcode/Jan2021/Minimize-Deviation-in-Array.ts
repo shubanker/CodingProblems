@@ -86,3 +86,50 @@ console.log(
     minimumDeviation
   )
 );
+
+//Optimal approach
+
+function minimumDeviation_(nums: number[]): number {
+  function sink(parent: number) {
+    let child = parent * 2 + 1;
+    while (child < nums.length) {
+      let child2 = child + 1;
+      if (child2 < nums.length && nums[child2] > nums[child]) child = child2;
+      if (nums[child] > nums[parent]) {
+        let t = nums[child];
+        nums[child] = nums[parent];
+        nums[parent] = t;
+        parent = child;
+        child = parent * 2 + 1;
+      } else {
+        break;
+      }
+    }
+  }
+
+  function build() {
+    for (let i = (nums.length - 2) >> 1; i >= 0; i -= 1) {
+      sink(i);
+    }
+  }
+
+  for (let i = 0; i < nums.length; i += 1) {
+    if (nums[i] % 2 === 1) nums[i] *= 2;
+  }
+  nums = [...new Set(nums)];
+
+  build();
+
+  let min = Math.min(...nums);
+  let max = nums[0];
+  let ans = max - min;
+  while (max % 2 === 0) {
+    max = max / 2;
+    if (max < min) min = max;
+    nums[0] = max;
+    sink(0);
+    max = nums[0];
+    ans = Math.min(ans, max - min);
+  }
+  return ans;
+}
