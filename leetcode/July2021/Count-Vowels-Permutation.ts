@@ -39,27 +39,29 @@ const nextChars: Record<string, string[]> = {
   o: ["i", "u"],
   u: ["a"],
 };
+const keys = Object.keys(nextChars);
+const permutationMemo: Record<string, number[]> = keys.reduce((memo, char) => {
+  memo[char] = [0, 1];
+  return memo;
+}, {});
 function countVowelPermutation(n: number): number {
   const mod = 10 ** 9 + 7;
-  const keys = Object.keys(nextChars);
-  const memo: Record<string, number[]> = keys.reduce((memo, char) => {
-    memo[char] = [0, 1];
-    return memo;
-  }, {});
-  for (let i = 2; i <= n; i++) {
+  for (let i = permutationMemo[keys[0]].length; i <= n; i++) {
+    const lastVal = new Map<string, number>();
     keys.forEach((char) => {
-      memo[char][0] = memo[char][1];
+      lastVal.set(char, permutationMemo[char][i - 1]);
     });
     keys.forEach((char) => {
-      memo[char][1] =
+      permutationMemo[char].push(
         nextChars[char].reduce((sum, char) => {
-          return sum + memo[char][0];
-        }, 0) % mod;
+          return sum + lastVal.get(char);
+        }, 0) % mod
+      );
     });
   }
   return (
-    Object.values(memo).reduce((sum: number, current: number[]) => {
-      return sum + current[1];
+    keys.reduce((sum: number, char) => {
+      return sum + permutationMemo[char][n];
     }, 0) % mod
   );
 }
