@@ -41,7 +41,6 @@ interface islandGroup {
 function largestIsland(grid: number[][]): number {
   const islandLinks = new Map<string, Set<islandGroup>>();
   const getKey = (i: number, j: number): string => `${i},${j}`;
-  const checked = new Set<string>();
   const gridChecked = Array(grid.length)
     .fill(0)
     .map(() => Array(grid[0].length).fill(0));
@@ -58,21 +57,18 @@ function largestIsland(grid: number[][]): number {
     if (gridChecked[i][j]) {
       return;
     }
-    if (grid[i]?.[j] !== 1) {
-      const key = getKey(i, j);
-      if (grid[i]?.[j] === 0) {
+    gridChecked[i][j] = grid[i][j];
+    if (grid[i][j] !== 1) {
+      if (grid[i][j] === 0) {
+        const key = getKey(i, j);
         group.hasZeroNeig = true;
         if (!islandLinks.has(key)) {
           islandLinks.set(key, new Set());
         }
         islandLinks.get(key).add(group);
-      } else {
-        checked.add(key);
-        gridChecked[i][j] = 1;
       }
       return;
     }
-    gridChecked[i][j] = 1;
     group.size++;
     neighbours.forEach(([dx, dy]) => {
       DFSIslands(i + dx, j + dy, group);
