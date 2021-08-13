@@ -37,3 +37,37 @@ function groupAnagrams(strs: string[]): string[][] {
   }
   return Array.from(map.values());
 }
+//This approach is slower apparently.
+function groupAnagrams_(strs: string[]): string[][] {
+  let map = new Map();
+  const strMap = new Map();
+  const getKey = (str: string) => {
+    strMap.clear();
+    const startChar = "a".charCodeAt(0);
+    for (let i = 0; i < str.length; i++) {
+      let ch = str[i];
+      if (!strMap.has(ch)) {
+        strMap.set(ch, 1);
+      } else {
+        strMap.set(ch, strMap.get(ch) + 1);
+      }
+    }
+
+    let key = "";
+    for (let index = 0; index < 26; index++) {
+      const char = String.fromCharCode(startChar + index);
+      if (strMap.has(char)) {
+        key += char + strMap.get(char);
+      }
+    }
+    return key;
+  };
+  for (let s of strs) {
+    const key = getKey(s);
+    if (!map.has(key)) {
+      map.set(key, []);
+    }
+    map.get(key).push(s);
+  }
+  return Array.from(map.values());
+}
