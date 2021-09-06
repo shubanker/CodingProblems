@@ -49,35 +49,34 @@ function sumOfDistancesInTree(N: number, edges: number[][]): number[] {
   }
   let dp = Array(N).fill(0);
   let nodes = Array(N).fill(0);
+  function dfs(dp, nodes, g, start, father) {
+    nodes[start] = 1;
+    let neis = g.get(start);
+
+    for (let i = 0; i < neis.length; i++) {
+      if (neis[i] == father) {
+        continue;
+      }
+      dfs(dp, nodes, g, neis[i], start);
+      nodes[start] += nodes[neis[i]];
+      dp[start] += dp[neis[i]] + nodes[neis[i]];
+    }
+  }
+
+  function dfs2(dp, nodes, g, start, father, len, res, N) {
+    let neis = g.get(start);
+    for (let i = 0; i < neis.length; i++) {
+      if (g.get(start)[i] == father) {
+        continue;
+      }
+      let j = neis[i];
+      res[j] = dp[j] + (len - dp[j] - nodes[j]) + (N - nodes[j]);
+      dfs2(dp, nodes, g, j, start, res[j], res, N);
+    }
+  }
   dfs(dp, nodes, memo, 0, -1);
   let res = Array(N).fill(0);
   res[0] = dp[0];
   dfs2(dp, nodes, memo, 0, -1, res[0], res, N);
   return res;
-}
-
-function dfs(dp, nodes, g, start, father) {
-  nodes[start] = 1;
-  let neis = g.get(start);
-
-  for (let i = 0; i < neis.length; i++) {
-    if (neis[i] == father) {
-      continue;
-    }
-    dfs(dp, nodes, g, neis[i], start);
-    nodes[start] += nodes[neis[i]];
-    dp[start] += dp[neis[i]] + nodes[neis[i]];
-  }
-}
-
-function dfs2(dp, nodes, g, start, father, len, res, N) {
-  let neis = g.get(start);
-  for (let i = 0; i < neis.length; i++) {
-    if (g.get(start)[i] == father) {
-      continue;
-    }
-    let j = neis[i];
-    res[j] = dp[j] + (len - dp[j] - nodes[j]) + (N - nodes[j]);
-    dfs2(dp, nodes, g, j, start, res[j], res, N);
-  }
 }
