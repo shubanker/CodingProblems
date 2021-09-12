@@ -36,7 +36,7 @@ Constraints:
 It is guaranteed that all elements in horizontalCuts are distinct.
 It is guaranteed that all elements in verticalCuts are distinct.
  */
-function maxArea(h: number, w: number, horizontalCuts: number[], verticalCuts: number[]): number {
+function maxAreaForCake(h: number, w: number, horizontalCuts: number[], verticalCuts: number[]): number {
   let area = 0;
   horizontalCuts.push(0);
   verticalCuts.push(0);
