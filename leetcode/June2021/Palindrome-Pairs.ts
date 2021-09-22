@@ -48,6 +48,8 @@ class ReverseTrai {
     let iterator = trai;
     let remainingStr = "";
     let i = 0;
+
+    //Trai is empty
     if (trai.char !== "") {
       for (; i < str.length && iterator; i++) {
         if (str.charAt(i) !== iterator.char) {
@@ -77,4 +79,3 @@ function palindromePairs(words: string[]): number[][] {
   });
   return op;
 }
-console.log(palindromePairs(["a", "b", "c", "ab", "ac", "aa"]));
