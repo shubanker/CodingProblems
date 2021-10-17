@@ -36,18 +36,20 @@ Constraints:
 1 <= prices.length <= 105
 0 <= prices[i] <= 105
  */
-function maxProfit(prices: number[]): number {
-  let profit1 = 0,
-    profit2 = 0;
-  let purchase1 = Infinity,
-    purchase2 = Infinity;
+{
+  const maxProfit = (prices: number[]): number => {
+    let profit1 = 0,
+      profit2 = 0;
+    let purchase1 = Infinity,
+      purchase2 = Infinity;
 
-  for (let price of prices) {
-    purchase1 = Math.min(purchase1, price);
-    profit1 = Math.max(profit1, price - purchase1);
-    purchase2 = Math.min(purchase2, price - profit1);
-    profit2 = Math.max(profit2, price - purchase2);
-  }
+    for (let price of prices) {
+      purchase1 = Math.min(purchase1, price);
+      profit1 = Math.max(profit1, price - purchase1);
+      purchase2 = Math.min(purchase2, price - profit1);
+      profit2 = Math.max(profit2, price - purchase2);
+    }
 
-  return profit2;
+    return profit2;
+  };
 }
