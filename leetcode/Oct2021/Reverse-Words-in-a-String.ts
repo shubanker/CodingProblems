@@ -44,11 +44,29 @@ There is at least one word in s.
 Follow-up: If the string data type is mutable in your language, can you solve it in-place with O(1) extra space?
  */
 //Shortcut Approach
-function reverseWords(s: string): string {
+function reverseWords_(s: string): string {
   return s
     .split(" ")
     .map((w) => w.trim())
     .filter((c) => !!c)
     .reverse()
     .join(" ");
+}
+
+//Long memo effecient approach but apparently slower.
+function reverseWords(s: string): string {
+  let op = "";
+  let curr = "";
+  s += " ";
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] === " ") {
+      if (curr) {
+        op = curr + " " + op;
+        curr = "";
+      }
+    } else {
+      curr += s[i];
+    }
+  }
+  return op.slice(0, -1);
 }
