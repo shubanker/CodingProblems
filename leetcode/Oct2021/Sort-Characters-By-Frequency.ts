@@ -31,7 +31,27 @@ Constraints:
 1 <= s.length <= 5 * 105
 s consists of uppercase and lowercase English letters and digits.
  */
+//Alternate approach using Array
 function frequencySort(s: string): string {
+  const mapAr = Array(75).fill(0);
+  for (const char of s) {
+    mapAr[char.charCodeAt(0) - 48]++;
+  }
+  const sortedGuy = Array(75)
+    .fill(0)
+    .map((_, i) => i)
+    .sort((a, b) => mapAr[b] - mapAr[a]);
+  let result = "";
+  for (const charIndex of sortedGuy) {
+    if (mapAr[charIndex] > 0) {
+      result += String.fromCharCode(charIndex + 48).repeat(mapAr[charIndex]);
+    } else {
+      break;
+    }
+  }
+  return result;
+}
+function frequencySort_(s: string): string {
   const charMap = new Map<string, number>();
   for (const char of s) {
     charMap.set(char, (charMap.get(char) || 0) + 1);
