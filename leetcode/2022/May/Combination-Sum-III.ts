@@ -39,6 +39,29 @@ Constraints:
  */
 function combinationSum3(k: number, n: number): number[][] {
   const usedNums = new Set<number>();
+  const identifiedSeq = [];
+  const backTrack = (currentSum = 0, start = 1) => {
+    if (currentSum > n) {
+      return;
+    }
+    if (usedNums.size === k) {
+      if (currentSum === n) {
+        identifiedSeq.push([...usedNums]);
+        return;
+      }
+    }
+    for (let i = start; i < 10; i++) {
+      usedNums.add(i);
+      backTrack(currentSum + i, i + 1);
+      usedNums.delete(i);
+    }
+  };
+  backTrack();
+  return identifiedSeq;
+}
+
+function combinationSum3_(k: number, n: number): number[][] {
+  const usedNums = new Set<number>();
   const identifiedSeq = new Set<string>();
   const backTrack = (k: number, currentSum: number, remainingSum: number) => {
     if (k == 0 && remainingSum == 0) {
