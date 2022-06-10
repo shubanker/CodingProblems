@@ -40,7 +40,7 @@ The tests are generated such that there is exactly one solution.
     const findInArray = (needle: number, start: number) => {
       let tail = numbers.length;
       while (start <= tail) {
-        let mid = Math.floor(start + (tail - start) / 2);
+        let mid = start + Math.floor((tail - start) / 2);
         if (numbers[mid] === needle) {
           return mid;
         }
