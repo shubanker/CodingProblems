@@ -1,4 +1,4 @@
-import { MinHeap } from "../_includes/minHeap";
+import { MinHeap } from "../../_includes/minHeap";
 
 /**
 Furthest Building You Can Reach

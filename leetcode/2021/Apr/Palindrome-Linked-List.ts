@@ -36,7 +36,7 @@ Follow up: Could you do it in O(n) time and O(1) space?
  * }
  */
 
-import { runTests } from "../../test";
+import { runTests } from "../../../test";
 
 {
   function isPalindrome(head: ListNode | null): boolean {

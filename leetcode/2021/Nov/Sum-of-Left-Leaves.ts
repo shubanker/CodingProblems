@@ -1,4 +1,4 @@
-import { TreeNode } from "../_includes/treeNode";
+import { TreeNode } from "../../_includes/treeNode";
 
 /**
  Sum of Left Leaves

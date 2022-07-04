@@ -1,4 +1,4 @@
-import { ListNode } from "../_includes/listNode";
+import { ListNode } from "../../_includes/listNode";
 /**
  * Definition for singly-linkeAdd Two Numbers IId list.
  * class ListNode {

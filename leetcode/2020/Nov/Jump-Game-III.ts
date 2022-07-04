@@ -35,7 +35,7 @@ Constraints:
 0 <= start < arr.length
  */
 
-import { runTests } from "../../test";
+import { runTests } from "../../../test";
 
 function canReach(arr: number[], start: number): boolean {
   return checkIfReachable(arr, start, new Set());
