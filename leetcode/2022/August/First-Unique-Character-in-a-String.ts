@@ -24,15 +24,15 @@ Constraints:
 s consists of only lowercase English letters.
  */
 function firstUniqChar(s: string): number {
-  let m = new Map<string, number[]>();
+  let charmap = new Map<string, number[]>();
   for (let i = 0; i < s.length; i++) {
-    if (m.has(s[i])) {
-      m.get(s[i])[1] = 1;
+    if (charmap.has(s[i])) {
+      charmap.get(s[i])[1] = 1;
     } else {
-      m.set(s[i], [i, 0]);
+      charmap.set(s[i], [i, 0]);
     }
   }
-  for (const ar of m.values()) {
+  for (const ar of charmap.values()) {
     if (ar[1] === 0) {
       return ar[0];
     }
