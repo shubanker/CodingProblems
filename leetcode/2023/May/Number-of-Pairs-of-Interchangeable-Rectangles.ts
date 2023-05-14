@@ -34,19 +34,19 @@ rectangles[i].length == 2
 1 <= widthi, heighti <= 105
  */
 const permutation = (n: number) => (n * (n - 1)) / 2;
-const interchangableMap = new Map<number, number[][]>();
+const interchangableMap = new Map<number, number>();
 function interchangeableRectangles(rectangles: number[][]): number {
   interchangableMap.clear();
   rectangles.forEach((rect) => {
     const div = rect[0] / rect[1];
     if (!interchangableMap.has(div)) {
-      interchangableMap.set(div, []);
+      interchangableMap.set(div, 0);
     }
-    interchangableMap.get(div).push(rect);
+    interchangableMap.set(div, interchangableMap.get(div) + 1);
   });
   let sum = 0;
   for (let sameDivisiors of interchangableMap.values()) {
-    sum += permutation(sameDivisiors.length);
+    sum += permutation(sameDivisiors);
   }
   return sum;
 }
