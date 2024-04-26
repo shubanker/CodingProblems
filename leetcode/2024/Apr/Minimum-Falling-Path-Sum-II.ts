@@ -30,37 +30,35 @@ n == grid.length == grid[i].length
 -99 <= grid[i][j] <= 99
  */
 function minFallingPathSum(grid: number[][]): number {
-  const DP: number[][] = Array(grid.length)
-    .fill(null)
-    .map(() => Array(grid.length).fill(Number.MAX_SAFE_INTEGER));
   const minVals = [];
   const calcMinVals = (i: number) => {
-    const ar = DP[i];
     let min1 = 0,
       min2 = 1;
-    if (ar[min1] > ar[min2]) {
+    if (DP[min1] > DP[min2]) {
       [min1, min2] = [min2, min1];
     }
     for (i = 2; i < grid.length; i++) {
-      if (ar[i] < ar[min1]) {
+      if (DP[i] < DP[min1]) {
         min2 = min1;
         min1 = i;
-      } else if (ar[i] < ar[min2]) {
+      } else if (DP[i] < DP[min2]) {
         min2 = i;
       }
     }
     minVals.length = 0;
     minVals.push(min1, min2);
   };
-  DP[0] = grid[0].slice();
+  let DP = grid[0].slice();
   for (let i = 1; i < grid.length; i++) {
     calcMinVals(i - 1);
+    const next = [];
     for (let j = 0; j < grid.length; j++) {
-      DP[i][j] = grid[i][j] + DP[i - 1][j === minVals[0] ? minVals[1] : minVals[0]];
+      next[j] = grid[i][j] + DP[j === minVals[0] ? minVals[1] : minVals[0]];
     }
+    DP = next;
   }
-  console.log(DP);
-  return Math.min(...DP.at(-1));
+  // console.log(DP);
+  return Math.min(...DP);
 }
 
 // -108
