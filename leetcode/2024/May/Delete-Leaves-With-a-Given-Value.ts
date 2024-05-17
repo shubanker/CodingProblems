@@ -52,18 +52,14 @@ The number of nodes in the tree is in the range [1, 3000].
 function removeLeafNodes(root: TreeNode | null, target: number): TreeNode | null {
   const dfs = (node: TreeNode) => {
     if (!node) {
-      return false;
+      return node;
     }
-    if (dfs(node.left)) {
-      node.left = null;
-    }
-    if (dfs(node.right)) {
-      node.right = null;
-    }
+    node.left = dfs(node.left);
+    node.right = dfs(node.right);
     if (node.val === target && !node.left && !node.right) {
-      return true;
+      return null;
     }
-    return false;
+    return node;
   };
-  return dfs(root) ? null : root;
+  return dfs(root);
 }
