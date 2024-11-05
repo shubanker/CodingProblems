@@ -1,15 +1,19 @@
 {
-  "name": "leetcode",
+  "name": "coding-problems",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "ts-node-dev leetcode/2024/Apr/a.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "datastructures-js": "^10.1.1"
+  },
+  "devDependencies": {
+    "ts-node-dev": "^2.0.0"
   }
 }

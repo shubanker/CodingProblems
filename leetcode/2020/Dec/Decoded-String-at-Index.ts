@@ -1,4 +1,4 @@
-import { runTests } from "../../test";
+import { runTests } from "../../../test";
 
 /**
 Decoded String at Index

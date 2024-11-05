@@ -66,3 +66,31 @@ function uniquePaths(m: number, n: number): number {
   uniquePathsComputed = { memo, m, n };
   return memo[m - 1][n - 1];
 }
+
+const uniquePathsComputed_ = {
+  memo: [[1]],
+  m: 1,
+  n: 1,
+};
+function uniquePaths_2(m: number, n: number): number {
+  const { memo } = uniquePathsComputed_;
+  if (memo[m - 1]?.[n - 1]) {
+    return memo[m - 1][n - 1];
+  }
+  for (let i = 0; i < m; i++) {
+    for (let j = uniquePathsComputed_.n - 1; j < n; j++) {
+      memo[i + 1] ??= Array(n).fill(0);
+      memo[i][j + 1] ??= 0;
+      memo[i + 1][j] ??= 0;
+      memo[i][j + 1] += memo[i][j];
+      memo[i + 1][j] += memo[i][j];
+    }
+  }
+  memo[m] = Array(n).fill(0);
+  memo.forEach((ar) => (ar[n] = 0));
+
+  uniquePathsComputed_.n = Math.max(n, uniquePathsComputed_.n);
+  uniquePathsComputed_.m = Math.max(m, uniquePathsComputed_.m);
+  console.log(memo);
+  return memo[m - 1][n - 1];
+}

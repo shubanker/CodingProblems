@@ -21,3 +21,11 @@ export const arrToListNode = (ar: number[]) => {
   });
   return head;
 };
+export const ListNodeToAr = (head: ListNode) => {
+  const ar: number[] = [];
+  while (head) {
+    ar.push(head.val);
+    head = head.next;
+  }
+  return ar;
+};
